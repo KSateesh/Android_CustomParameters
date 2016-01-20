@@ -79,12 +79,12 @@ public class Cust_param extends Driver {
 			String	req=null;
 			String[] arrays=null;
 			
-			for(int FeedValue =1;FeedValue<6;FeedValue++)
+			for(int FeedValue =1;FeedValue<4;FeedValue++)
 			{
 				System.out.println("---------------------");    
 				System.out.println("Get the Feed_"+FeedValue+" Call Data");
 				System.out.println("---------------------");
-//				Thread.sleep(2000);
+
 				
 				if (sb.toString().contains("slotName=weather.feed" + FeedValue)) {
 
