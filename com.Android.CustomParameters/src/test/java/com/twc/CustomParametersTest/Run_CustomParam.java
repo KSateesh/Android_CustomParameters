@@ -22,11 +22,11 @@ public class Run_CustomParam extends Driver{
 		cp.custparam();
 	}
 	
-   // To Capabilities to Launch the APP
+   // To set the Capabilities and to Launch the APP
 	@BeforeTest
 	public void CapabilitesLaunch() throws Exception {
 
-		//Start Appium Server and launch the APP
+		//Stop and Start Appium Server and launch the APP
 		Capabilities_android cap = new Capabilities_android();
 		cap.dcap();
 		
