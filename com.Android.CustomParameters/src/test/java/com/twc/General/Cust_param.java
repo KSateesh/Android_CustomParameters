@@ -79,7 +79,7 @@ public class Cust_param extends Driver {
 			String	req=null;
 			String[] arrays=null;
 			
-			for(int FeedValue =1;FeedValue<4;FeedValue++)
+			for(int FeedValue =1;FeedValue<6;FeedValue++)
 			{
 				System.out.println("---------------------");    
 				System.out.println("Get the Feed_"+FeedValue+" Call Data");
