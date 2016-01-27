@@ -60,49 +60,50 @@ public class Cust_param extends Driver {
 		String FilePath = properties.getProperty("LogFilePath");
 
 		Map<String, String> mapkeys = new HashMap<String, String>();
-
+		StringBuffer sb=null;
 		try {
 			FileInputStream fstream = new FileInputStream(FilePath);
 			BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 			String strLine;
 
 			// / read log line by line ------ strLine = br.readLines(6, 10); /
-			StringBuffer sb = new StringBuffer("");
+		     sb = new StringBuffer("");
 			while ((strLine = br.readLine()) != null) {
 				
 				//System.out.println (strLine);
 				sb.append(strLine);
 
 			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	
 			String	req1=null;
 			String	req=null;
 			String[] arrays=null;
 			
 			for(int FeedValue =1;FeedValue<6;FeedValue++)
-			{
-				System.out.println("---------------------");    
-				System.out.println("Get the Feed_"+FeedValue+" Call Data");
-				System.out.println("---------------------");
-
-				
+			{	
+		
 				if (sb.toString().contains("slotName=weather.feed" + FeedValue)) {
 
+					System.out.println("---------------------");    
+					System.out.println("Get the Feed_"+FeedValue+" Call Data");
+					System.out.println("---------------------");
+					
 					//Taking the FeedIndex and then get the flmtpc and Locale key value pair 
 					int feed_Index = sb.toString().lastIndexOf("slotName=weather.feed" + FeedValue);
-			//---//	System.out.println("Position : " + feed_Index);
+
 					String beforeStr = sb.toString().substring(feed_Index - 45,feed_Index);
-	    	//---//	System.out.println("Before String: " + beforeStr);
+
 					req1 = sb.toString().substring(feed_Index);
 
 					//Adding the beforeStr and req1 string to finalStr,which is a having feed call content
 					String finalStr = beforeStr + req1;
-					// System.out.println("finalStr : "+finalStr);
-					//req = finalStr.substring(0, finalStr.indexOf("}"));
+					
 					req = finalStr.substring(0, finalStr.indexOf("feed_"+FeedValue)+6);
 					//System.out.println("Verifing the :: " + req);
-
-				}
 
 					//Read Excel
 					String[][] data = new String[10][10];
@@ -175,7 +176,6 @@ public class Cust_param extends Driver {
 												System.out.println(keys);
 												wResult.enterResult("SMOKE", "Pass", ExactValue, testcase, ResultColumn_1, ResultColumn_2);
 											}
-
 									}
 
 								}
@@ -183,24 +183,20 @@ public class Cust_param extends Driver {
 							}
 						}
 					}
+					
 					Thread.sleep(3000);
 					Swipe.swipe();
 					Thread.sleep(1000);
 					Swipe.swipe();
 				}	
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			}
 
 		System.out.println("****************************");
 
 		System.out.println("Custom Parameters verifcation case completed");
 		
 		System.out.println("****************************");
-		
-
-		
+				
 	}
 
 }
