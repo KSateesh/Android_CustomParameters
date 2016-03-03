@@ -10,11 +10,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 //import atu.testng.reports.ATUReports;
 import com.twc.ExcelReadWrite.ExcelData;
 import com.twc.ExcelReadWrite.WriteResultintoExcel;
@@ -34,26 +32,19 @@ public class Cust_param extends Driver {
 		
 		System.out.println("Debug command is done");
 	
-//		String[] str2 ={"/bin/bash", "-c", adbPath+" logcat -c >> "+properties.getProperty("LogFilePath")};
-//		Process p2 = Runtime.getRuntime().exec(str2);
-//		System.out.println("Delete existing App logs to LogFile");
-	
 		String[] str1 ={"/bin/bash", "-c", adbPath+" -d logcat -v time >> "+properties.getProperty("LogFilePath")};
 		Process p1 = Runtime.getRuntime().exec(str1);
 		System.out.println("Writing App logs to LogFile");
 
 	//Wait for 10 sec for element presence
-	WebDriverWait wait = new WebDriverWait(Ad, 20);
+	WebDriverWait wait = new WebDriverWait(Ad, 10);
 	wait.until(ExpectedConditions.presenceOfElementLocated(By.id("com.weather.Weather:id/temperature")));
 	
 	//Temperature  Element
 	MobileElement temp = (MobileElement) Ad.findElementById("com.weather.Weather:id/temperature");
-	Thread.sleep(10000);
 	System.out.println("Temperatuer is : "+temp.getText());
 	
-	//Thread.sleep(5000);
 	Swipe.swipe();
-	//Thread.sleep(5000);
 	Swipe.swipe();
 		
 		BufferedReader r = new BufferedReader(new FileReader(properties.getProperty("LogFilePath")));
@@ -61,26 +52,26 @@ public class Cust_param extends Driver {
 		String line = "";
 		String allLine = "";
 
-//		while((line=r.readLine()) != null)
-//		{
-//			System.out.println("Sys data is :: "+line);
-//		}
+		while((line=r.readLine()) != null)
+		{
+			System.out.println("Sys data is :: "+line);
+		}
 
 		String FilePath = properties.getProperty("LogFilePath");
 
 		Map<String, String> mapkeys = new HashMap<String, String>();
-		StringBuffer res_sb=null;
+		StringBuffer sb=null;
 		try {
 			FileInputStream fstream = new FileInputStream(FilePath);
 			BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 			String strLine;
 
 			// / read log line by line ------ strLine = br.readLines(6, 10); /
-			res_sb = new StringBuffer("");
+		     sb = new StringBuffer("");
 			while ((strLine = br.readLine()) != null) {
 				
 				//System.out.println (strLine);
-				res_sb.append(strLine);
+				sb.append(strLine);
 
 			}
 			
@@ -92,36 +83,28 @@ public class Cust_param extends Driver {
 			String	req=null;
 			String[] arrays=null;
 			
-			for(int FeedValue =1;FeedValue<=6;FeedValue++)
+			for(int FeedValue =1;FeedValue<6;FeedValue++)
 			{	
-				System.out.println("Feed Value ======> "+FeedValue);
-				Thread.sleep(5000);
-				String sb = res_sb.toString();
-				if (sb.toString().contains("slotName=weather.feed"+FeedValue)) {
-					//String sb = 
-					//System.out.println(sb.toString());
-					System.out.println("Feed URL Contains :::::::: "+FeedValue);
-				
-//					if (sb.toString().equals("slotName=weather.feed"+FeedValue)) {
+		
+				if (sb.toString().contains("slotName=weather.feed" + FeedValue)) {
 
 					System.out.println("---------------------");    
 					System.out.println("Get the Feed_"+FeedValue+" Call Data");
 					System.out.println("---------------------");
 					
 					//Taking the FeedIndex and then get the flmtpc and Locale key value pair 
-					int feed_Index = sb.toString().lastIndexOf("slotName=weather.feed"+FeedValue);
-			//---//	System.out.println("Position : " + feed_Index);
+					int feed_Index = sb.toString().lastIndexOf("slotName=weather.feed" + FeedValue);
+
 					String beforeStr = sb.toString().substring(feed_Index - 45,feed_Index);
-	    	//---//	System.out.println("Before String: " + beforeStr);
+
 					req1 = sb.toString().substring(feed_Index);
 
 					//Adding the beforeStr and req1 string to finalStr,which is a having feed call content
 					String finalStr = beforeStr + req1;
-					// System.out.println("finalStr : "+finalStr);
-					//req = finalStr.substring(0, finalStr.indexOf("}"));
+					
 					req = finalStr.substring(0, finalStr.indexOf("feed_"+FeedValue)+6);
 					//System.out.println("Verifing the :: " + req);
-//					}
+
 					//Read Excel
 					String[][] data = new String[10][10];
 					ExcelData er = new ExcelData();
@@ -129,11 +112,10 @@ public class Cust_param extends Driver {
 
 					//First Test Cases
 					
-					Thread.sleep(10000);
+					Thread.sleep(1000);
 					
 					for(int testcase=1;testcase<=43;testcase++)
 					{
-						Thread.sleep(500);
 						String param = data[testcase][4].toString();
 				        System.out.println("============================================="); //---//
 						System.out.println("Verifying Cust_Param is : "+ param);
@@ -199,20 +181,13 @@ public class Cust_param extends Driver {
 								}
 
 							}
-					}
+						}
 					}
 					
-					//Thread.sleep(10000);
-//					if(FeedValue == 1) { 
-//						Swipe.swipe();
-//						Thread.sleep(10000); 
-//					}
-//					else {
-						Swipe.swipe();
-						Thread.sleep(5000);
-						Swipe.swipe();
-						Thread.sleep(10000);
-					//}
+					Thread.sleep(3000);
+					Swipe.swipe();
+					Thread.sleep(1000);
+					Swipe.swipe();
 				}	
 			}
 
