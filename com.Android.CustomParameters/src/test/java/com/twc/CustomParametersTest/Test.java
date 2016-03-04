@@ -4,6 +4,7 @@ import com.twc.AppiumAutoStart.Capabilities_android;
 import com.twc.General.Cust_param;
 import com.twc.General.DeleteFile;
 import com.twc.General.File_Exist;
+import com.twc.General.New_Cust_Parameter;
 import com.twc.General.toKnowBuildVersion;
 import com.twc.driver.Driver;
 
@@ -33,9 +34,10 @@ public class Test extends Driver{
 		//Thread.sleep(1500);
 		
 		//Verify Custom parameters
-		Cust_param cp= new Cust_param();
+		//Cust_param cp= new Cust_param();
+		//cp.custparam();
+		New_Cust_Parameter cp=new New_Cust_Parameter();
 		cp.custparam();
-		
 //		Thread.sleep(1000);
 		//Close all resources
 //		Ad.quit();
